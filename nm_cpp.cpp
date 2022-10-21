@@ -1,54 +1,30 @@
 // C++ Native Messaging host
 // https://browserext.github.io/native-messaging/
 // https://developer.chrome.com/docs/apps/nativeMessaging/
-// https://discourse.mozilla.org/t/webextension-with-native-messaging-c-app-side/30821
+// https://www.reddit.com/user/Eternal_Weeb/
+// guest271314, 2022
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void sendMessage(string message) {
-  string data = message.data();
-  uint32_t size = uint32_t(message.size());
-  char *length = reinterpret_cast<char *>(&size);
-  fwrite(length, 4, sizeof(char), stdout);
-  fwrite(message.c_str(), message.length(), sizeof(char), stdout);
+vector<uint8_t> getMessage() {
+  uint32_t length = 0;
+  size_t size = fread(&length, sizeof(length), 1, stdin);
+  vector<uint8_t> message(length); 
+  size = fread(message.data(), sizeof(*message.data()), message.size(), stdin);
+  return message;
+}
+
+void sendMessage(const vector<uint8_t> &message) {
+  const uint32_t length = message.size();
+  fwrite(&length, sizeof(length), 1, stdout);
+  fwrite(message.data(), message.size(), sizeof(*message.data()), stdout);
   fflush(stdout);
 }
 
-string getMessage() {
-  char length[4];
-  fread(length, 4, sizeof(char), stdin);
-  uint32_t len = *reinterpret_cast<uint32_t *>(length);
-  // Uncomment to exit when message length is 0.
-  // if (!len) { exit(EXIT_SUCCESS); }
-  char message[len];
-  fread(message, len, sizeof(char), stdin);
-  string content(message, message + sizeof(message) / sizeof(message[0]));
-  return content;
-}
-
-int main(int argc, char *argv[]) {
+int main() {
   while (true) {
-    string message = getMessage();
-    sendMessage(message);
-    // Build JSON array
-    /*
-    string data = "[";
-    // Remove double quotation marks from beginning, end of string.
-    // .substr(1, message.length() - 2);
-    data += message; 
-    data += ", ";
-    for(int i = 0; i < argc; i++) {
-      string arg = string(argv[i]);
-      data += "\"";
-      data += arg;
-      data += "\"";
-      if (i < argc -1) {
-        data += ", ";
-      }
-    }
-    data += "]";
-    sendMessage(data);
-    */
+    sendMessage(getMessage());
   }
   return 0;
 }
