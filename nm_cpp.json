@@ -1,0 +1,7 @@
+{
+  "name": "nm_cpp",
+  "description": "C++ Native Messaging Host",
+  "path": "",
+  "type": "stdio",
+  "allowed_origins": []
+}
