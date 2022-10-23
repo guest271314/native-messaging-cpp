@@ -1,6 +1,6 @@
 {
   "name": "nm-cpp",
-  "short_name": "nm_c" ,
+  "short_name": "nm_cpp" ,
   "version": "1.0",
   "manifest_version": 3,
   "permissions": ["nativeMessaging"],
