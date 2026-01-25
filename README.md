@@ -18,6 +18,3 @@ For differences between OS and browser implementations see [Chrome incompatibili
 
 # License
 Do What the Fuck You Want to Public License [WTFPLv2](http://www.wtfpl.net/about/)
-
-# License
-Do What the Fuck You Want to Public License [WTFPLv2](http://www.wtfpl.net/about/)
