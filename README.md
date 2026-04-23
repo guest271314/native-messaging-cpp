@@ -1,6 +1,6 @@
-C++ Native Messaging host
+## C++ Native Messaging host
 
-Installation and usage on Chrome and Chromium
+### Installation and usage on Chrome and Chromium
 
 1. Navigate to `chrome://extensions`.
 2. Toggle `Developer mode`.
